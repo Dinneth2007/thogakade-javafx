@@ -1,16 +1,25 @@
 package controller;
 
 import db.DBConnection;
+import model.CartTableModel;
 import model.Order;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class OrderController {
+
     Connection connection;
     OrderController() throws SQLException, ClassNotFoundException {
         connection=DBConnection.getDBconnection().getConnection();
+
+    }
+
+    public  String loadNewOrderId() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDBconnection().getConnection();
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT id FROM orders ORDER BY id DESC LIMIT 1");
+        return rst.next() ? rst.getString("id")+1 : "";
     }
     public boolean addOrder(Order order) throws SQLException {
 

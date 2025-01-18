@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.CartTableModel;
 import model.Customer;
 import model.Item;
 
@@ -70,20 +72,33 @@ public class OrderFormController implements Initializable {
 
     @FXML
     private TextField txtxAddress;
+    ObservableList<CartTableModel> CartList=FXCollections.observableArrayList();
     OrderController controller;
     CustomerController customerController;
     @FXML
     void BtnOnActionPlaceOrder(ActionEvent event) {
-
+        CartList.clear();
     }
 
     @FXML
     void BtnOnAddToCart(ActionEvent event) {
        // loadTable();
+        String code=cmbItemcode.getValue().toString();
+        String desc=txtItemDesc.getText();
+        int Qty=Integer.parseInt(txtQty.getText());
+        double unitprice=Double.parseDouble(txtUnitPrice.getText());
+        double total=unitprice*Qty;
+        CartList.add(new CartTableModel(code,desc,Qty,unitprice,total));
+        ItemTable.setItems(CartList);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colItemCode.setCellValueFactory(new PropertyValueFactory<>("ItemCode"));
+       colDesc.setCellValueFactory(new PropertyValueFactory<>("Desc"));
+        colQOH.setCellValueFactory(new PropertyValueFactory<>("QTY"));
+        colUP.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         try {
             customerController=new CustomerController();
             controller=new OrderController();
@@ -95,11 +110,16 @@ public class OrderFormController implements Initializable {
         Date date= new Date();
         lblDate.setText(date.toString());
         try {
+            lblOrderId.setText(controller.loadNewOrderId());
             loadCustomerIds();
+            loadItemIds();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
     public void loadCustomerIds() throws SQLException {
         CustomerController customerController=new CustomerController();
         ObservableList<String> customerId= FXCollections.observableArrayList();
@@ -109,12 +129,28 @@ public class OrderFormController implements Initializable {
         });
         cmbCustId.setItems(customerId);
     }
+    public void loadItemIds() throws SQLException {
+
+        ObservableList<String> itemCode= FXCollections.observableArrayList();
+        List<Item> itemlist=ItemController.getItems();
+        itemlist.forEach(item -> {
+            itemCode.add(item.getItemcode());
+        });
+        cmbItemcode.setItems(itemCode);
+    }
 
     public void cmbCustIdOnAction(ActionEvent actionEvent) throws SQLException {
         Customer customer=customerController.serachById(cmbCustId.getValue().toString());
         txtName.setText(customer.getName());
         txtxAddress.setText(customer.getAddress());
         txtSalary.setText(String.valueOf(customer.getSalary()));
+    }
+
+    public void itemdropOnAction(ActionEvent actionEvent) throws SQLException {
+        Item item=ItemController.serachById(cmbItemcode.getValue().toString());
+       txtItemDesc.setText(item.getDesc());
+        txtStock.setText(String.valueOf(item.getQtyOnHand()));
+        txtUnitPrice.setText(String.valueOf(item.getUnitPrice()));
     }
 //    public void loadTable(){
 //        ObservableList<Item> ItemObsList=FXCollections.observableArrayList();
