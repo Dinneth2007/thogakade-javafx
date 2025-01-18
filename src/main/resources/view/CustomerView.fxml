@@ -32,5 +32,6 @@
         </columns>
       </TableView>
       <Button fx:id="navigate" layoutX="280.0" layoutY="168.0" mnemonicParsing="false" onAction="#navigate" text="navigate" />
+      <Button fx:id="BtnDlt" layoutX="201.0" layoutY="168.0" mnemonicParsing="false" onAction="#BtnOnActionDlt" text="Delete" />
    </children>
 </AnchorPane>

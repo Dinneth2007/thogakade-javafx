@@ -29,11 +29,16 @@ public class LoginViewController implements Initializable {
 
     @FXML
     void BtnOnActionLogin(ActionEvent event) throws SQLException, IOException {
+        System.out.println(controller.login(txtemail.getText(),txtpwd.getText()));
         if(controller.login(txtemail.getText(),txtpwd.getText())){
             Stage stage=new Stage();
 
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/CustomerView.fxml"))));
             stage.show();
+            Stage stage2=new Stage();
+
+            stage2.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/AddOrderForm.fxml"))));
+            stage2.show();
         }else{
             new Alert(Alert.AlertType.ERROR,"wrong credentials").show();
 

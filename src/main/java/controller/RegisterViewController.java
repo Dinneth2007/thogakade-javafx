@@ -36,13 +36,6 @@ public class RegisterViewController implements Initializable {
     @FXML
     void register(ActionEvent event) {
 
-//        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-//        String privateData = txtemail.getText();
-//        String myEncryptedText = textEncryptor.encrypt(privateData);
-//
-//        String plainText = textEncryptor.decrypt(myEncryptedText);
-//        System.out.println(myEncryptedText);
-//        System.out.println(plainText);
         try {
 
             if(controller.addregister(txtUname.getText(),txtemail.getText(),txtpwd.getText(),txtrepwd.getText())){

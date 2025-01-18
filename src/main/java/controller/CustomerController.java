@@ -35,6 +35,16 @@ public class CustomerController {
         }
 
     }
+    public boolean deleteCustomer(String id) throws SQLException {
+        String SQL = "DELETE FROM Customer WHERE ID=?";
+        PreparedStatement stm = connection.prepareStatement(SQL);
+        stm.setObject(1,id);
+
+        int res=stm.executeUpdate();
+
+
+        return res>0?true:false;
+    }
     public List<Customer> getCustomers() throws SQLException {
         List<Customer> customerList=new ArrayList<>();
         String SQL = "Select * From Customer";

@@ -6,16 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -30,6 +28,7 @@ public class CustomerViewController implements Initializable {
     public TableColumn name;
     public TableColumn address;
     public TableColumn salary;
+    public Button BtnDlt;
 
     private CustomerController controller;
     @Override
@@ -81,5 +80,11 @@ public class CustomerViewController implements Initializable {
         stage.show();
 
 
+    }
+
+    public void BtnOnActionDlt(ActionEvent actionEvent) throws SQLException {
+        if(controller.deleteCustomer(id.getText())){
+            System.out.println("dlt sucess");
+        };
     }
 }
