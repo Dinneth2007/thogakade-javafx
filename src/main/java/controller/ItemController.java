@@ -4,6 +4,7 @@ import db.DBConnection;
 import model.Customer;
 import model.Item;
 import model.Order;
+import model.OrderDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class ItemController {
         }
     }
 
-    public static boolean updateItemStock(ArrayList<Item> items){
-        items.forEach(item -> {
+    public static boolean updateItemStock(ArrayList<OrderDetail> details ){
+        details.forEach(detail -> {
             try {
-                updateItemStock(item.getItemcode(),item.getQtyOnHand());
+                updateItemStock(detail.getItemcode(),detail.getQty());
             } catch (ClassNotFoundException e) {
 
                 throw new RuntimeException(e);
@@ -37,8 +38,6 @@ public class ItemController {
         });
         return true;
     }
-
-
     public static boolean updateItemStock(String itemCode, int qty) throws ClassNotFoundException, SQLException{
         PreparedStatement stm = DBConnection.getDBconnection().getConnection().prepareStatement("Update Item set QtyOnHand=qtyOnHand-? where code=?");
         stm.setObject(1,qty);

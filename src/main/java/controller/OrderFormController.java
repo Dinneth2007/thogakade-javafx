@@ -12,12 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.CartTableModel;
-import model.Customer;
-import model.Item;
+import model.*;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,6 +27,7 @@ public class OrderFormController implements Initializable {
     public JFXComboBox cmbCustId;
     public JFXComboBox cmbItemcode;
     public TextField txtSalary;
+    public TextField txtOrderId;
     @FXML
     private JFXButton BtnAddtoCart;
 
@@ -75,9 +75,19 @@ public class OrderFormController implements Initializable {
     ObservableList<CartTableModel> CartList=FXCollections.observableArrayList();
     OrderController controller;
     CustomerController customerController;
+    ArrayList<OrderDetail>orderDetailsList;
     @FXML
-    void BtnOnActionPlaceOrder(ActionEvent event) {
+    void BtnOnActionPlaceOrder(ActionEvent event) throws SQLException {
+        Order order=new Order(txtOrderId.getText(),"2025-01-18",cmbCustId.getValue().toString(),orderDetailsList);
+        if(controller.addOrder(order)){
+            System.out.println("Order Added Sucessfuly!");
+            if(ItemController.updateItemStock(order.getOrderDetailList())){
+                System.out.println("Item Table updated!!");
+
+            }
+        }
         CartList.clear();
+        orderDetailsList.clear();
     }
 
     @FXML
@@ -90,6 +100,7 @@ public class OrderFormController implements Initializable {
         double total=unitprice*Qty;
         CartList.add(new CartTableModel(code,desc,Qty,unitprice,total));
         ItemTable.setItems(CartList);
+        orderDetailsList.add(new OrderDetail(txtOrderId.getText(),cmbItemcode.getValue().toString(),Integer.parseInt(txtQty.getText()),Double.parseDouble(txtUnitPrice.getText())));
     }
 
     @Override
@@ -99,6 +110,7 @@ public class OrderFormController implements Initializable {
         colQOH.setCellValueFactory(new PropertyValueFactory<>("QTY"));
         colUP.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        orderDetailsList=new ArrayList<>();
         try {
             customerController=new CustomerController();
             controller=new OrderController();

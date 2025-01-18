@@ -60,7 +60,7 @@ public class CustomerController {
         return customerList;
     }
     public  Customer serachById(String ID) throws SQLException {
-        String SQL = "Select * From customer WHERE id="+ID;
+        String SQL = "Select * From customer WHERE id="+"'"+ID+"'";
         Statement stm = connection.createStatement();
         ResultSet rst = stm.executeQuery(SQL);
         while (rst.next()) {

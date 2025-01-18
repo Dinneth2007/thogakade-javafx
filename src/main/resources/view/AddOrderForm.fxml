@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderFormController">
    <children>
       <JFXComboBox fx:id="cmbCustId" layoutX="35.0" layoutY="86.0" onAction="#cmbCustIdOnAction" prefHeight="27.0" prefWidth="144.0" promptText="customer id" />
@@ -25,7 +24,7 @@
         <columns>
           <TableColumn fx:id="colItemCode" prefWidth="78.0" text="Item Code" />
           <TableColumn fx:id="colDesc" prefWidth="171.0" text="Desc" />
-            <TableColumn fx:id="colQOH" prefWidth="118.0" text="QtyOnHand" />
+            <TableColumn fx:id="colQOH" prefWidth="118.0" text="QTY" />
             <TableColumn fx:id="colUP" prefWidth="147.0" text="UnitPrice" />
             <TableColumn fx:id="colTotal" prefWidth="135.0" text="Total" />
         </columns>
@@ -35,7 +34,6 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="593.0" layoutY="20.0" prefHeight="26.0" prefWidth="96.0" text="Order Id :" />
       <Label fx:id="lblOrderId" layoutX="698.0" layoutY="20.0" prefHeight="26.0" prefWidth="96.0" />
       <JFXButton fx:id="BtnAddtoCart1" layoutX="649.0" layoutY="460.0" onAction="#BtnOnActionPlaceOrder" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #74b9ff;" text="Place Order" />
       <Label layoutX="14.0" layoutY="15.0" prefHeight="26.0" prefWidth="137.0" />
@@ -45,5 +43,6 @@
          </font>
       </Label>
       <TextField fx:id="txtSalary" layoutX="593.0" layoutY="87.0" promptText="Salary" />
+      <TextField fx:id="txtOrderId" layoutX="531.0" layoutY="15.0" promptText="Enter Order ID" />
    </children>
 </AnchorPane>
