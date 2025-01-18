@@ -59,4 +59,18 @@ public class CustomerController {
         }
         return customerList;
     }
+    public  Customer serachById(String ID) throws SQLException {
+        String SQL = "Select * From customer WHERE id="+ID;
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery(SQL);
+        while (rst.next()) {
+            String id =(rst.getString(1));
+            String name = rst.getString(2);
+            String address = rst.getString(3);
+            double salary= rst.getInt(4);
+
+            return new Customer(id,name,address,salary);
+        }
+        return null;
+    }
 }
