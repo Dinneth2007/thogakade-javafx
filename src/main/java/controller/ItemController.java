@@ -39,7 +39,7 @@ public class ItemController {
         return true;
     }
     public static boolean updateItemStock(String itemCode, int qty) throws ClassNotFoundException, SQLException{
-        PreparedStatement stm = DBConnection.getDBconnection().getConnection().prepareStatement("Update Item set QtyOnHand=qtyOnHand-? where code=?");
+        PreparedStatement stm = DBConnection.getDBconnection().getConnection().prepareStatement("Update Item set QtyOnHand=QtyOnHand-? where code=?");
         stm.setObject(1,qty);
         stm.setObject(2, itemCode);
         return stm.executeUpdate()>0;

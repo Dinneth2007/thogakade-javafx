@@ -3,6 +3,7 @@ package controller;
 import db.DBConnection;
 import model.CartTableModel;
 import model.Order;
+import model.OrderDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class OrderController {
         ResultSet rst = stm.executeQuery("SELECT id FROM orders ORDER BY id DESC LIMIT 1");
         return rst.next() ? rst.getString("id")+1 : "";
     }
-    public boolean addOrder(Order order) throws SQLException {
+    public boolean addOrder(Order order) throws SQLException, ClassNotFoundException {
 
         String SQL = "Insert into Orders(id,date,customerId) Values(?,?,?)";
         PreparedStatement stm = connection.prepareStatement(SQL);
@@ -31,13 +32,18 @@ public class OrderController {
         stm.setObject(3, order.getCustomer_id());
 
 
-        int res=stm.executeUpdate();
-        if(res>0){
-            return true;
-        }else{
-            return false;
+        boolean isAddOrder=stm.executeUpdate()>0;
+        if(isAddOrder){
+            System.out.println("Order Added");
+            for(OrderDetail orderDetail:order.getOrderDetailList()){
+               boolean IsUpdateStock= ItemController.updateItemStock(orderDetail.getItemcode(),orderDetail.getQty());
+               if (IsUpdateStock){
+                   System.out.println("stock updates");
+                   System.out.println(OrderDetailController.addOrderDetail(orderDetail)?"OrderDetail Added":"Couldn't add order detail");
+               }
+            }
         }
-
+        return true;
     }
 }
 
