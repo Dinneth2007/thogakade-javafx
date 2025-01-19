@@ -30,8 +30,8 @@ public class OrderController {
         stm.setObject(1, order.getId());
         stm.setObject(2, order.getDate());
         stm.setObject(3, order.getCustomer_id());
-
-
+    try{
+        connection.setAutoCommit(false);
         boolean isAddOrder=stm.executeUpdate()>0;
         if(isAddOrder){
             System.out.println("Order Added");
@@ -41,11 +41,19 @@ public class OrderController {
                   boolean IsUpdateStock=ItemController.updateItemStock(order.getOrderDetailList());
                   if (IsUpdateStock){
                       System.out.println("stock updated");
+                      connection.commit();
+
                   }
               }
 
         }
+        connection.rollback();
         return true;
+    }finally {
+            //connection.setAutoCommit(true);
+        }
+
     }
+
 }
 
