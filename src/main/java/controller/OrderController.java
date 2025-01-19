@@ -35,13 +35,15 @@ public class OrderController {
         boolean isAddOrder=stm.executeUpdate()>0;
         if(isAddOrder){
             System.out.println("Order Added");
-            for(OrderDetail orderDetail:order.getOrderDetailList()){
-               boolean IsUpdateStock= ItemController.updateItemStock(orderDetail.getItemcode(),orderDetail.getQty());
-               if (IsUpdateStock){
-                   System.out.println("stock updates");
-                   System.out.println(OrderDetailController.addOrderDetail(orderDetail)?"OrderDetail Added":"Couldn't add order detail");
-               }
-            }
+            boolean IsAddOrderDetail=OrderDetailController.addOrderDetail(order.getOrderDetailList());
+              if(IsAddOrderDetail){
+                  System.out.println("OrderDetail Added!");
+                  boolean IsUpdateStock=ItemController.updateItemStock(order.getOrderDetailList());
+                  if (IsUpdateStock){
+                      System.out.println("stock updated");
+                  }
+              }
+
         }
         return true;
     }

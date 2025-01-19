@@ -28,7 +28,7 @@ public class OrderDetailController {
         return true;
     }
     public static boolean addOrderDetail(OrderDetail orderDetails) throws SQLException {
-        String SQL = "Insert into OrderDetail(orderId,itemCode,qty,unitPrice) Values(?,?,?,?)";
+        String SQL = "Insert into OrderDetail Values(?,?,?,?)";
         PreparedStatement stm = connection.prepareStatement(SQL);
 
         stm.setObject(1, orderDetails.getOrderid());
