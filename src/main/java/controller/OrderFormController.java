@@ -28,6 +28,7 @@ public class OrderFormController implements Initializable {
     public JFXComboBox cmbItemcode;
     public TextField txtSalary;
     public TextField txtOrderId;
+    public JFXButton BtnRemoveFromCart;
     @FXML
     private JFXButton BtnAddtoCart;
 
@@ -78,14 +79,14 @@ public class OrderFormController implements Initializable {
     ArrayList<OrderDetail>orderDetailsList;
     @FXML
     void BtnOnActionPlaceOrder(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Order order=new Order(txtOrderId.getText(),"2025-01-18",cmbCustId.getValue().toString(),orderDetailsList);
-        controller.connection.setAutoCommit(false);
+        Order order=new Order(txtOrderId.getText(),"2025-01-20",cmbCustId.getValue().toString(),orderDetailsList);
+
 
             controller.addOrder(order);
-            controller.connection.commit();
 
 
-         //
+
+
 
         CartList.clear();
         orderDetailsList.clear();
@@ -164,6 +165,11 @@ public class OrderFormController implements Initializable {
        txtItemDesc.setText(item.getDesc());
         txtStock.setText(String.valueOf(item.getQtyOnHand()));
         txtUnitPrice.setText(String.valueOf(item.getUnitPrice()));
+    }
+
+    public void BtnActionRemovefromcart(ActionEvent actionEvent) {
+//        Object obj = ItemTable.getSelectionModel().getSelectedItem();
+
     }
 //    public void loadTable(){
 //        ObservableList<Item> ItemObsList=FXCollections.observableArrayList();

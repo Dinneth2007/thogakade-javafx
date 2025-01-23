@@ -23,7 +23,9 @@ public class OrderDetailController {
 
     public static boolean addOrderDetail(ArrayList<OrderDetail> orderDetails) throws SQLException {
         for(OrderDetail orderDetail:orderDetails){
-            addOrderDetail(orderDetail);
+            if(!addOrderDetail(orderDetail)){
+                return false;
+            };
         }
         return true;
     }

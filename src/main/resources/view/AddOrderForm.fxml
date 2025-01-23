@@ -44,5 +44,6 @@
       </Label>
       <TextField fx:id="txtSalary" layoutX="593.0" layoutY="87.0" promptText="Salary" />
       <TextField fx:id="txtOrderId" layoutX="531.0" layoutY="15.0" promptText="Enter Order ID" />
+      <JFXButton fx:id="BtnRemoveFromCart" layoutX="515.0" layoutY="208.0" onAction="#BtnActionRemovefromcart" style="-fx-background-color: red;" text="Remove Item" />
    </children>
 </AnchorPane>

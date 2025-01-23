@@ -24,18 +24,15 @@ public class ItemController {
         }
     }
 
-    public static boolean updateItemStock(ArrayList<OrderDetail> details ){
-        details.forEach(detail -> {
-            try {
-                updateItemStock(detail.getItemcode(),detail.getQty());
-            } catch (ClassNotFoundException e) {
+    public static boolean updateItemStock(ArrayList<OrderDetail> details ) throws SQLException,ClassNotFoundException{
 
-                throw new RuntimeException(e);
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            for (OrderDetail detail: details) {
+                boolean IsUpdate = updateItemStock(detail.getItemcode(), detail.getQty());
+                if (!IsUpdate) {
+                    return false;
+                }
             }
-        });
+
         return true;
     }
     public static boolean updateItemStock(String itemCode, int qty) throws ClassNotFoundException, SQLException{
