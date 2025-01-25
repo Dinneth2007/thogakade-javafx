@@ -1,4 +1,4 @@
-package controller;
+package controller.Auth;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

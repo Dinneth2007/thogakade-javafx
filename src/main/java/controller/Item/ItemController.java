@@ -1,15 +1,12 @@
-package controller;
+package controller.Item;
 
 import db.DBConnection;
-import model.Customer;
 import model.Item;
-import model.Order;
 import model.OrderDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class ItemController {
     private static Connection connection;

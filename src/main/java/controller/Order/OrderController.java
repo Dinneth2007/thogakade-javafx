@@ -1,12 +1,11 @@
-package controller;
+package controller.Order;
 
+import controller.Item.ItemController;
+import controller.OrderDetail.OrderDetailController;
 import db.DBConnection;
-import model.CartTableModel;
 import model.Order;
-import model.OrderDetail;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class OrderController {
 
@@ -36,10 +35,10 @@ public class OrderController {
         boolean isAddOrder=stm.executeUpdate()>0;
         if(isAddOrder){
             System.out.println("Order Added");
-            boolean IsAddOrderDetail=OrderDetailController.addOrderDetail(order.getOrderDetailList());
+            boolean IsAddOrderDetail= OrderDetailController.addOrderDetail(order.getOrderDetailList());
               if(IsAddOrderDetail){
                   System.out.println("OrderDetail Added!");
-                  boolean IsUpdateStock=ItemController.updateItemStock(order.getOrderDetailList());
+                  boolean IsUpdateStock= ItemController.updateItemStock(order.getOrderDetailList());
                   if (IsUpdateStock){
                       System.out.println("stock updated");
                       connection.commit();

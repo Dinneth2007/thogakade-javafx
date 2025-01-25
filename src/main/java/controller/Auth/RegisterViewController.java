@@ -1,4 +1,4 @@
-package controller;
+package controller.Auth;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.IOException;
 import java.net.URL;

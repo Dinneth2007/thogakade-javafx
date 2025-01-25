@@ -1,4 +1,4 @@
-package controller;
+package controller.Auth;
 
 import db.DBConnection;
 import org.jasypt.util.text.BasicTextEncryptor;

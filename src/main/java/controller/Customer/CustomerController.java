@@ -1,4 +1,4 @@
-package controller;
+package controller.Customer;
 
 import db.DBConnection;
 import model.Customer;

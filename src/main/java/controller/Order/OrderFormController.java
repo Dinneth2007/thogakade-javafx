@@ -1,7 +1,9 @@
-package controller;
+package controller.Order;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import controller.Customer.CustomerController;
+import controller.Item.ItemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +18,7 @@ import model.*;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class OrderFormController implements Initializable {
 
@@ -79,7 +78,7 @@ public class OrderFormController implements Initializable {
     ArrayList<OrderDetail>orderDetailsList;
     @FXML
     void BtnOnActionPlaceOrder(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Order order=new Order(txtOrderId.getText(),"2025-01-20",cmbCustId.getValue().toString(),orderDetailsList);
+        Order order=new Order(txtOrderId.getText(),"2025-01-26",cmbCustId.getValue().toString(),orderDetailsList);
 
 
             controller.addOrder(order);
@@ -146,7 +145,7 @@ public class OrderFormController implements Initializable {
     public void loadItemIds() throws SQLException {
 
         ObservableList<String> itemCode= FXCollections.observableArrayList();
-        List<Item> itemlist=ItemController.getItems();
+        List<Item> itemlist= ItemController.getItems();
         itemlist.forEach(item -> {
             itemCode.add(item.getItemcode());
         });
@@ -168,8 +167,9 @@ public class OrderFormController implements Initializable {
     }
 
     public void BtnActionRemovefromcart(ActionEvent actionEvent) {
-//        Object obj = ItemTable.getSelectionModel().getSelectedItem();
-
+       CartTableModel cart =(CartTableModel) ItemTable.getSelectionModel().getSelectedItem();
+       CartList.remove(cart);
+    ItemTable.setItems(CartList);
     }
 //    public void loadTable(){
 //        ObservableList<Item> ItemObsList=FXCollections.observableArrayList();

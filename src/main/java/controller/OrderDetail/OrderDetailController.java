@@ -1,4 +1,4 @@
-package controller;
+package controller.OrderDetail;
 
 import db.DBConnection;
 import model.OrderDetail;
