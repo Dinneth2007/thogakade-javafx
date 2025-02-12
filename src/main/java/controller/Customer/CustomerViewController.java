@@ -1,15 +1,12 @@
 package controller.Customer;
 
+import dto.CustomerDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import model.Customer;
 import service.BOFactory;
 import service.custom.impl.CustomerBoImpl;
 import util.BOType;
@@ -47,7 +44,7 @@ public class CustomerViewController implements Initializable {
 
     public void add(ActionEvent actionEvent) {
         try {
-            System.out.println(customerBo.addCustomer(new Customer(IDtxt.getText(),titledropdown.getPromptText()+" "+Nametxt.getText(),Adresstxt.getText(),Double.parseDouble(Salarytxt.getText()))));
+            System.out.println(customerBo.addCustomer(new CustomerDTO(IDtxt.getText(),titledropdown.getPromptText()+" "+Nametxt.getText(),Adresstxt.getText(),Double.parseDouble(Salarytxt.getText()))));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,7 +1,8 @@
 package repo.custom.impls;
 
 import db.DBConnection;
-import model.Customer;
+import dto.CustomerDTO;
+import entity.CustomerEntity;
 import repo.custom.CustomerDAO;
 
 import java.sql.Connection;
@@ -25,7 +26,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
     @Override
-    public boolean add(Customer customer) throws SQLException {
+    public boolean add(CustomerEntity customer) throws SQLException {
 
             String SQL = "Insert into Customer Values(?,?,?,?)";
             PreparedStatement stm = connection.prepareStatement(SQL);
@@ -44,7 +45,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    public boolean Update(Customer customer, String s) {
+    public boolean Update(CustomerEntity customer, String s) {
         return false;
     }
 
@@ -54,7 +55,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> getAll() {
+    public List<CustomerEntity> getAll() {
         return List.of();
     }
 }

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import controller.Customer.CustomerController;
 import controller.Item.ItemController;
+import dto.CustomerDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -137,7 +138,7 @@ public class OrderFormController implements Initializable {
     public void loadCustomerIds() throws SQLException {
         CustomerController customerController=new CustomerController();
         ObservableList<String> customerId= FXCollections.observableArrayList();
-        List<Customer> customerlist=customerController.getCustomers();
+        List<CustomerDTO> customerlist=customerController.getCustomers();
         customerlist.forEach(customer -> {
             customerId.add(customer.getId());
         });
@@ -154,7 +155,7 @@ public class OrderFormController implements Initializable {
     }
 
     public void cmbCustIdOnAction(ActionEvent actionEvent) throws SQLException {
-        Customer customer=customerController.serachById(cmbCustId.getValue().toString());
+        CustomerDTO customer=customerController.serachById(cmbCustId.getValue().toString());
         txtName.setText(customer.getName());
         txtxAddress.setText(customer.getAddress());
         txtSalary.setText(String.valueOf(customer.getSalary()));

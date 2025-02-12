@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Customer {
+public class CustomerEntity {
     private String id;
     private String name;
     private String Address;

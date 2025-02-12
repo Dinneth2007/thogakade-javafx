@@ -1,7 +1,8 @@
 package repo.custom;
 
-import model.Customer;
+import dto.CustomerDTO;
+import entity.CustomerEntity;
 import repo.CRUDRepo;
 
-public interface CustomerDAO extends CRUDRepo<Customer,String> {
+public interface CustomerDAO extends CRUDRepo<CustomerEntity,String> {
 }

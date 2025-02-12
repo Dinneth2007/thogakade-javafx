@@ -1,7 +1,7 @@
 package controller.Customer;
 
 import db.DBConnection;
-import model.Customer;
+import dto.CustomerDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CustomerController {
             throw new RuntimeException(e);
         }
     }
-    public boolean addcustomer(Customer customer) throws SQLException {
+    public boolean addcustomer(CustomerDTO customer) throws SQLException {
         String SQL = "Insert into Customer Values(?,?,?,?)";
         PreparedStatement stm = connection.prepareStatement(SQL);
         stm.setObject(1, customer.getId());
@@ -45,8 +45,8 @@ public class CustomerController {
 
         return res>0?true:false;
     }
-    public List<Customer> getCustomers() throws SQLException {
-        List<Customer> customerList=new ArrayList<>();
+    public List<CustomerDTO> getCustomers() throws SQLException {
+        List<CustomerDTO> customerList=new ArrayList<>();
         String SQL = "Select * From Customer";
         Statement stm = connection.createStatement();
         ResultSet rst = stm.executeQuery(SQL);
@@ -55,11 +55,11 @@ public class CustomerController {
             String name = rst.getString("name");
             String address = rst.getString(3);
             double salary = rst.getDouble("salary");
-            customerList.add(new Customer(id,name,address,salary));
+            customerList.add(new CustomerDTO(id,name,address,salary));
         }
         return customerList;
     }
-    public  Customer serachById(String ID) throws SQLException {
+    public CustomerDTO serachById(String ID) throws SQLException {
         String SQL = "Select * From customer WHERE id="+"'"+ID+"'";
         Statement stm = connection.createStatement();
         ResultSet rst = stm.executeQuery(SQL);
@@ -69,7 +69,7 @@ public class CustomerController {
             String address = rst.getString(3);
             double salary= rst.getInt(4);
 
-            return new Customer(id,name,address,salary);
+            return new CustomerDTO(id,name,address,salary);
         }
         return null;
     }
