@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDetailController {
     private static Connection connection;
@@ -21,7 +22,7 @@ public class OrderDetailController {
         }
     }
 
-    public static boolean addOrderDetail(ArrayList<OrderDetail> orderDetails) throws SQLException {
+    public static boolean addOrderDetail(List<OrderDetail> orderDetails) throws SQLException {
         for(OrderDetail orderDetail:orderDetails){
             if(!addOrderDetail(orderDetail)){
                 return false;

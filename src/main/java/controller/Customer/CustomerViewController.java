@@ -10,6 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
+import service.BOFactory;
+import service.custom.impl.CustomerBoImpl;
+import util.BOType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +32,7 @@ public class CustomerViewController implements Initializable {
     public TableColumn salary;
     public Button BtnDlt;
 
-    private CustomerController controller;
+    private CustomerBoImpl customerBo;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //PropertyBinding for tables columns
@@ -37,13 +40,14 @@ public class CustomerViewController implements Initializable {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        controller=new CustomerController();
+
         loadTitles();
+        customerBo= BOFactory.getInstance().getCustomerBoImpl(BOType.CUSTOMER);
     }
 
     public void add(ActionEvent actionEvent) {
         try {
-            System.out.println(controller.addcustomer(new Customer(IDtxt.getText(),titledropdown.getPromptText()+" "+Nametxt.getText(),Adresstxt.getText(),Double.parseDouble(Salarytxt.getText()))));
+            System.out.println(customerBo.addCustomer(new Customer(IDtxt.getText(),titledropdown.getPromptText()+" "+Nametxt.getText(),Adresstxt.getText(),Double.parseDouble(Salarytxt.getText()))));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -56,34 +60,34 @@ public class CustomerViewController implements Initializable {
         titleLists.add("Dr");
         titledropdown.setItems(titleLists);
     }
-    public void loadTable(){
-        ObservableList<Customer> customerObsList=FXCollections.observableArrayList();
-        try {
-            controller.getCustomers().forEach(customer -> {
-                customerObsList.add(customer);
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        table.setItems(customerObsList);
-    }
+//    public void loadTable(){
+//        ObservableList<Customer> customerObsList=FXCollections.observableArrayList();
+//        try {
+//            customerBo.getCustomers().forEach(customer -> {
+//                customerObsList.add(customer);
+//            });
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        table.setItems(customerObsList);
+//    }
 
     public void getCustomers(ActionEvent actionEvent) {
-        loadTable();
+        //loadTable();
     }
-
+//
     public void navigate(ActionEvent actionEvent) throws IOException {
-        Stage stage=new Stage();
-
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/RegisterView.fxml"))));
-        stage.show();
+//        Stage stage=new Stage();
+//
+//        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/RegisterView.fxml"))));
+//        stage.show();
 
 
     }
 
     public void BtnOnActionDlt(ActionEvent actionEvent) throws SQLException {
-        if(controller.deleteCustomer(id.getText())){
-            System.out.println("dlt sucess");
-        };
+//        if(controller.deleteCustomer(id.getText())){
+//            System.out.println("dlt sucess");
+//        };
     }
 }

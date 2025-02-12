@@ -28,6 +28,7 @@ public class OrderFormController implements Initializable {
     public TextField txtSalary;
     public TextField txtOrderId;
     public JFXButton BtnRemoveFromCart;
+    public JFXButton BtnRemove;
     @FXML
     private JFXButton BtnAddtoCart;
 
@@ -166,10 +167,16 @@ public class OrderFormController implements Initializable {
         txtUnitPrice.setText(String.valueOf(item.getUnitPrice()));
     }
 
-    public void BtnActionRemovefromcart(ActionEvent actionEvent) {
-       CartTableModel cart =(CartTableModel) ItemTable.getSelectionModel().getSelectedItem();
-       CartList.remove(cart);
-    ItemTable.setItems(CartList);
+//    public void BtnActionRemovefromcart(ActionEvent actionEvent) {
+////       CartTableModel cart =(CartTableModel) ItemTable.getSelectionModel().getSelectedItem();
+////       CartList.remove(cart);
+////    ItemTable.setItems(CartList);
+//    }
+
+    public void BtnOnActionRemove(ActionEvent actionEvent) {
+        CartTableModel cart =(CartTableModel) ItemTable.getSelectionModel().getSelectedItem();
+        CartList.remove(cart);
+        ItemTable.setItems(CartList);
     }
 //    public void loadTable(){
 //        ObservableList<Item> ItemObsList=FXCollections.observableArrayList();

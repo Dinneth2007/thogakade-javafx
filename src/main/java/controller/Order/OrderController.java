@@ -34,7 +34,7 @@ public class OrderController {
         System.out.println("set auto commit false");
         boolean isAddOrder=stm.executeUpdate()>0;
         if(isAddOrder){
-            System.out.println("Order Added");
+            System.out.println("Order Added "+order.getId());
             boolean IsAddOrderDetail= OrderDetailController.addOrderDetail(order.getOrderDetailList());
               if(IsAddOrderDetail){
                   System.out.println("OrderDetail Added!");
@@ -51,14 +51,14 @@ public class OrderController {
         }
 
 
-        return false;
+
     }finally {
         connection.rollback();
         System.out.println("rolled back");
             connection.setAutoCommit(true);
         System.out.println(" finally autocommit true");
         }
-
+        return false;
     }
 
 }
