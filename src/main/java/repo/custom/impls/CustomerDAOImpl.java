@@ -1,8 +1,10 @@
 package repo.custom.impls;
 
+import config.HibernateConfig;
 import db.DBConnection;
 import dto.CustomerDTO;
 import entity.CustomerEntity;
+import org.hibernate.Session;
 import repo.custom.CustomerDAO;
 
 import java.sql.Connection;
@@ -28,19 +30,24 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public boolean add(CustomerEntity customer) throws SQLException {
             System.out.println(customer);
-            String SQL = "Insert into Customer Values(?,?,?,?)";
-            PreparedStatement stm = connection.prepareStatement(SQL);
-            stm.setObject(1, customer.getId());
-            stm.setObject(2, customer.getName());
-            stm.setObject(3, customer.getAddress());
-            stm.setObject(4, customer.getSalary());
-            int res=stm.executeUpdate();
-            if(res>0){
-                return true;
-            }else{
-                return false;
-            }
-
+        Session session = HibernateConfig.geSession();
+        session.beginTransaction();
+        session.persist(customer);
+        session.getTransaction().commit();
+        session.close();
+//            String SQL = "Insert into Customer Values(?,?,?,?)";
+//            PreparedStatement stm = connection.prepareStatement(SQL);
+//            stm.setObject(1, customer.getId());
+//            stm.setObject(2, customer.getName());
+//            stm.setObject(3, customer.getAddress());
+//            stm.setObject(4, customer.getSalary());
+//            int res=stm.executeUpdate();
+//            if(res>0){
+//                return true;
+//            }else{
+//                return false;
+//            }
+            return true;
         }
 
 
