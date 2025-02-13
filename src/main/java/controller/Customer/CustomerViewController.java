@@ -1,5 +1,6 @@
 package controller.Customer;
 
+import com.google.inject.Inject;
 import dto.CustomerDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,8 +29,8 @@ public class CustomerViewController implements Initializable {
     public TableColumn address;
     public TableColumn salary;
     public Button BtnDlt;
-
-    private CustomerBoImpl customerBo;
+    @Inject
+    private CustomerBoImpl customerBo=BOFactory.getInstance().getCustomerBoImpl(BOType.CUSTOMER);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //PropertyBinding for tables columns
@@ -39,11 +40,11 @@ public class CustomerViewController implements Initializable {
         salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
         loadTitles();
-        customerBo= BOFactory.getInstance().getCustomerBoImpl(BOType.CUSTOMER);
     }
 
     public void add(ActionEvent actionEvent) {
         try {
+            System.out.println(customerBo==null?"is Null":"Not Null");
             System.out.println(customerBo.addCustomer(new CustomerDTO(IDtxt.getText(),titledropdown.getPromptText()+" "+Nametxt.getText(),Adresstxt.getText(),Double.parseDouble(Salarytxt.getText()))));
         } catch (SQLException e) {
             throw new RuntimeException(e);

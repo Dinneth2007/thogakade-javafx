@@ -1,5 +1,6 @@
 package service.custom.impl;
 
+import com.google.inject.Inject;
 import dto.CustomerDTO;
 import entity.CustomerEntity;
 import org.modelmapper.ModelMapper;
@@ -11,10 +12,12 @@ import util.DAOType;
 import java.sql.SQLException;
 
 public class CustomerBoImpl implements CustomerBO {
-    CustomerDAO customerDAO= DAOFactory.getInstance().getCustomerDAOImpl(DAOType.CUSTOMER);
+    @Inject
+    CustomerDAO customerDAO=DAOFactory.getInstance().getCustomerDAOImpl(DAOType.CUSTOMER);
     @Override
     public boolean addCustomer(CustomerDTO customer) throws SQLException {
-        CustomerEntity map = new ModelMapper().map(CustomerDTO.class, CustomerEntity.class);
+        System.out.println(customer);
+        CustomerEntity map = new ModelMapper().map(customer, CustomerEntity.class);
         return customerDAO.add(map)?true:false;
 
     }

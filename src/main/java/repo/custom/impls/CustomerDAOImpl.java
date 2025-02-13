@@ -27,7 +27,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
     @Override
     public boolean add(CustomerEntity customer) throws SQLException {
-
+            System.out.println(customer);
             String SQL = "Insert into Customer Values(?,?,?,?)";
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setObject(1, customer.getId());
